@@ -6,18 +6,16 @@
 
 #!/bin/bash
 
-USER=
-USER_HOME=/home/${USER}
 IP=
 
 # prerequisite
+cd ~
 sudo sed -i 's/1/0/g' /etc/apt/apt.conf.d/20auto-upgrades
 sudo apt install -y net-tools
 
 sudo systemctl stop ufw
 sudo systemctl disable ufw
 
-git clone https://github.com/kubernetes-sigs/kubespray.git
 ssh-keygen -t rsa
 ssh-copy-id -i ~/.ssh/id_rsa ${USER}@${IP}
 
