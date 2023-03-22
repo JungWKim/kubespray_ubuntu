@@ -23,7 +23,8 @@ git clone https://github.com/kubernetes-sigs/kubespray.git -b release-2.20
 
 cd kubespray
 pip install -r requirements.txt
-echo "export PATH=~/.local/bin:${PATH}" >> ~/.bashrc
+echo "export PATH=${HOME}/.local/bin:${PATH}" >> ~/.bashrc
+source ~/.bashrc
 cp -rfp inventory/sample inventory/mycluster
 declare -a IPS=(${IP})
 #CONFIG_FILE=inventory/mycluster/hosts.yaml python3 contrib/inventory_builder/inventory.py ${IPS[@]}
