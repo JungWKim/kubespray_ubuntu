@@ -11,7 +11,7 @@ IP=
 # prerequisite
 cd ~
 sudo sed -i 's/1/0/g' /etc/apt/apt.conf.d/20auto-upgrades
-sudo apt install -y net-tools
+sudo apt install -y net-tools python3-pip
 
 sudo systemctl stop ufw
 sudo systemctl disable ufw
@@ -23,6 +23,7 @@ git clone https://github.com/kubernetes-sigs/kubespray.git -b release-2.20
 
 cd kubespray
 pip install -r requirements.txt
+echo "export PATH=~/.local/bin:${PATH}" >> ~/.bashrc
 cp -rfp inventory/sample inventory/mycluster
 declare -a IPS=(${IP})
 #CONFIG_FILE=inventory/mycluster/hosts.yaml python3 contrib/inventory_builder/inventory.py ${IPS[@]}
