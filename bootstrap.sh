@@ -61,8 +61,7 @@ sed -i "s/container_manager: containerd/container_manager: docker/g" inventory/m
 
 sed -i "s/host_architecture }}]/host_architecture }} signed-by=\/etc\/apt\/keyrings\/docker.gpg]/g" roles/container-engine/docker/vars/ubuntu.yml
 
-#sed -i "s/# cri_dockerd_enabled: false/cri_dockerd_enabled: true/g" inventory/mycluster/group_vars/all/docker.yml
-#sed -i "s/cri_dockerd_enabled: false/cri_dockerd_enabled: true/g" roles/kubespray-defaults/defaults/main.yaml
+#sed -i "s/# cri_dockerd_enabled: false/cri_dockerd_enabled: false/g" inventory/mycluster/group_vars/all/docker.yml
 
 sudo mkdir -m 0755 -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
