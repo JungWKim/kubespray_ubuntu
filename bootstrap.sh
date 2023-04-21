@@ -64,8 +64,8 @@ sed -i "s/host_architecture }}]/host_architecture }} signed-by=\/etc\/apt\/keyri
 #sed -i "s/# cri_dockerd_enabled: false/cri_dockerd_enabled: true/g" inventory/mycluster/group_vars/all/docker.yml
 #sed -i "s/cri_dockerd_enabled: false/cri_dockerd_enabled: true/g" roles/kubespray-defaults/defaults/main.yaml
 
-mkdir -m 0755 -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo mkdir -m 0755 -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
 # enable kubectl & kubeadm auto-completion
 echo "source <(kubectl completion bash)" >> ${HOME}/.bashrc
