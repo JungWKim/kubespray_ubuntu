@@ -63,6 +63,7 @@ sed -i "s/host_architecture }}]/host_architecture }} signed-by=\/etc\/apt\/keyri
 sed -i "s/# docker_cgroup_driver: systemd/docker_cgroup_driver: systemd/g" inventory/mycluster/group_vars/all/docker.yml
 
 sed -i "s/# cri_dockerd_enabled: false/cri_dockerd_enabled: false/g" inventory/mycluster/group_vars/all/docker.yml
+sed -i "s/container_manager: contianerd/container_manager: docker/g" roles/container-engine/cri-dockerd/molecule/default/prepare.yml
 
 sudo mkdir -m 0755 -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
