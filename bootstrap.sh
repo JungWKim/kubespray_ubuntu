@@ -16,6 +16,7 @@ sudo systemctl stop ufw
 sudo systemctl disable ufw
 
 # install basic packages
+sudo apt update
 sudo apt install -y python3-pip
 
 # network configuration
