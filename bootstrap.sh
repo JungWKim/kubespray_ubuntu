@@ -66,6 +66,10 @@ sed -i "s/# docker_storage_options: -s overlay2/docker_storage_options: -s overl
 sed -i "s/kube_network_plugin: calico/kube_network_plugin: flannel/g" roles/kubespray-defaults/defaults/main.yaml
 sed -i "s/kube_network_plugin: calico/kube_network_plugin: flannel/g" inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
 
+# enable kubernetes dashboard
+sed -i "s/# dashboard_enabled: false/dashboard_enabled: true/g" inventory/mycluster/group_vars/k8s_cluster/addons.yml
+
+# download docker gpg
 sudo mkdir -m 0755 -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
