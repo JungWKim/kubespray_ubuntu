@@ -72,6 +72,13 @@ sed -i "s/# dashboard_enabled: false/dashboard_enabled: true/g" inventory/myclus
 # disable dashboard login
 sed -i "s/dashboard_skip_login: false/dashboard_skip_login: true/g" roles/kubernetes-apps/ansible/defaults/main.yml
 
+# change dashboard service as nodeport
+sed -i'' -r -e "/targetPort: 8443/a\  type: NodePort" roles/kubernetes-apps/ansible/templates/dashboard.yml.j2
+
+# create sa and clusterrolebinding to get cluster-admin token
+kubectl apply -f sa.yaml
+kubectl apply -f clusterrolebinding.yaml
+
 # enable helm
 sed -i "s/helm_enabled: false/helm_enabled: true/g" inventory/mycluster/group_vars/k8s_cluster/addons.yml
 
