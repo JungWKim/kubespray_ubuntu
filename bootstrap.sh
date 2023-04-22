@@ -76,8 +76,8 @@ sed -i "s/dashboard_skip_login: false/dashboard_skip_login: true/g" roles/kubern
 sed -i'' -r -e "/targetPort: 8443/a\  type: NodePort" roles/kubernetes-apps/ansible/templates/dashboard.yml.j2
 
 # create sa and clusterrolebinding to get cluster-admin token
-kubectl apply -f sa.yaml
-kubectl apply -f clusterrolebinding.yaml
+kubectl apply -f ~/kubespray_docker_ubuntu/sa.yaml
+kubectl apply -f ~/kubespray_docker_ubuntu/clusterrolebinding.yaml
 
 # enable helm
 sed -i "s/helm_enabled: false/helm_enabled: true/g" inventory/mycluster/group_vars/k8s_cluster/addons.yml
