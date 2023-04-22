@@ -40,7 +40,7 @@ ssh-keygen -t rsa
 ssh-copy-id -i ~/.ssh/id_rsa ${USER}@${IP}
 
 # k8s installation via kubespray
-git clone https://github.com/kubernetes-sigs/kubespray.git -b release-2.19
+git clone -b release-2.20 https://github.com/kubernetes-sigs/kubespray.git
 cd kubespray
 pip install -r requirements.txt
 
