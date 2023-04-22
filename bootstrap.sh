@@ -68,16 +68,10 @@ sed -i "s/kube_network_plugin: calico/kube_network_plugin: flannel/g" inventory/
 
 # enable kubernetes dashboard
 sed -i "s/# dashboard_enabled: false/dashboard_enabled: true/g" inventory/mycluster/group_vars/k8s_cluster/addons.yml
-
 # disable dashboard login
 sed -i "s/dashboard_skip_login: false/dashboard_skip_login: true/g" roles/kubernetes-apps/ansible/defaults/main.yml
-
 # change dashboard service as nodeport
 sed -i'' -r -e "/targetPort: 8443/a\  type: NodePort" roles/kubernetes-apps/ansible/templates/dashboard.yml.j2
-
-# create sa and clusterrolebinding to get cluster-admin token
-kubectl apply -f ~/kubespray_docker_ubuntu/sa.yaml
-kubectl apply -f ~/kubespray_docker_ubuntu/clusterrolebinding.yaml
 
 # enable helm
 sed -i "s/helm_enabled: false/helm_enabled: true/g" inventory/mycluster/group_vars/k8s_cluster/addons.yml
@@ -102,10 +96,9 @@ mkdir -p ${HOME}/.kube
 sudo cp -i /etc/kubernetes/admin.conf ${HOME}/.kube/config
 sudo chown ${USER}:${USER} ${HOME}/.kube/config
 
-# install helm
-# curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-# chmod 700 get_helm.sh
-# ./get_helm.sh
+# create sa and clusterrolebinding of dashboard to get cluster-admin token
+kubectl apply -f ~/kubespray_docker_ubuntu/sa.yaml
+kubectl apply -f ~/kubespray_docker_ubuntu/clusterrolebinding.yaml
 
 # install helmfile
 wget https://github.com/helmfile/helmfile/releases/download/v0.150.0/helmfile_0.150.0_linux_amd64.tar.gz
