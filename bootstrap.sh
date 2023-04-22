@@ -51,21 +51,17 @@ cp -rfp inventory/sample inventory/mycluster
 declare -a IPS=(${IP})
 CONFIG_FILE=inventory/mycluster/hosts.yaml python3 contrib/inventory_builder/inventory.py ${IPS[@]}
 
-#sed -i "s/docker_version: '20.10'/docker_version: 'latest'/g" roles/container-engine/docker/defaults/main.yml
-#sed -i "s/docker_containerd_version: 1.4.12/docker_containerd_version: latest/g" roles/download/defaults/main.yml
-
-sed -i "s/container_manager: containerd/container_manager: docker/g" roles/kubespray-defaults/defaults/main.yaml
+sed -i "s/docker_version: '20.10'/docker_version: 'latest'/g" roles/container-engine/docker/defaults/main.yml
+sed -i "s/docker_containerd_version: 1.6.4/docker_containerd_version: latest/g" roles/download/defaults/main.yml
 sed -i "s/container_manager: containerd/container_manager: docker/g" inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
+sed -i "s/container_manager: containerd/container_manager: docker/g" roles/kubespray-defaults/defaults/main.yaml
 sed -i "s/# container_manager: containerd/container_manager: docker/g" inventory/mycluster/group_vars/all/etcd.yml
-sed -i "s/etcd_deployment_type: host/etcd_deployment_type: docker/g" inventory/mycluster/group_vars/all/etcd.yml
-
 sed -i "s/host_architecture }}]/host_architecture }} signed-by=\/etc\/apt\/keyrings\/docker.gpg]/g" roles/container-engine/docker/vars/ubuntu.yml
 sed -i "s/# docker_cgroup_driver: systemd/docker_cgroup_driver: systemd/g" inventory/mycluster/group_vars/all/docker.yml
-
-sed -i "s/# cri_dockerd_enabled: false/cri_dockerd_enabled: false/g" inventory/mycluster/group_vars/all/docker.yml
+sed -i "s/etcd_deployment_type: host/etcd_deployment_type: docker/g" inventory/mycluster/group_vars/all/etcd.yml
+sed -i "s/etcd_deployment_type: host/etcd_deployment_type: docker/g" roles/kubespray-defaults/defaults/main.yaml
 sed -i "s/# docker_storage_options: -s overlay2/docker_storage_options: -s overlay2/g" inventory/mycluster/group_vars/all/docker.yml
 sed -i "s/# docker_storage_options: -s overlay2/docker_storage_options: -s overlay2/g" roles/kubespray-defaults/defaults/main.yaml
-sed -i "s/container_manager: containerd/container_manager: docker/g" roles/container-engine/cri-dockerd/molecule/default/prepare.yml
 
 sudo mkdir -m 0755 -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
