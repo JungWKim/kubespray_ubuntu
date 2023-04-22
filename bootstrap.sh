@@ -64,6 +64,10 @@ sed -i "s/etcd_deployment_type: host/etcd_deployment_type: docker/g" roles/kubes
 sed -i "s/# docker_storage_options: -s overlay2/docker_storage_options: -s overlay2/g" inventory/mycluster/group_vars/all/docker.yml
 sed -i "s/# docker_storage_options: -s overlay2/docker_storage_options: -s overlay2/g" roles/kubespray-defaults/defaults/main.yaml
 
+# change network plugin
+sed -i "s/kube_network_plugin: calico/kube_network_plugin: flannel/g" roles/kubespray-defaults/defaults/main.yaml
+sed -i "s/kube_network_plugin: calico/kube_network_plugin: flannel/g" inventory/sample/group_vars/k8s_cluster/k8s-cluster.yml
+
 sudo mkdir -m 0755 -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
@@ -75,7 +79,7 @@ echo "source <(kubeadm completion bash)" | sudo tee -a /root/.bashrc
 source ${HOME}/.bashrc
 
 ansible-playbook -i inventory/mycluster/hosts.yaml  --become --become-user=root cluster.yml -K
-sleep 120
+sleep 30
 cd ~
 
 # enable kubectl in admin account and root
