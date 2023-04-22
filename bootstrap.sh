@@ -68,8 +68,12 @@ sed -i "s/kube_network_plugin: calico/kube_network_plugin: flannel/g" inventory/
 
 # enable kubernetes dashboard
 sed -i "s/# dashboard_enabled: false/dashboard_enabled: true/g" inventory/mycluster/group_vars/k8s_cluster/addons.yml
+
 # disable dashboard login
 sed -i "s/dashboard_skip_login: false/dashboard_skip_login: true/g" roles/kubernetes-apps/ansible/defaults/main.yml
+
+# enable helm
+sed -i "s/helm_enabled: false/helm_enabled: true/g" inventory/mycluster/group_vars/k8s_cluster/addons.yml
 
 # download docker gpg
 sudo mkdir -m 0755 -p /etc/apt/keyrings
