@@ -99,19 +99,3 @@ sudo chown ${USER}:${USER} ${HOME}/.kube/config
 # create sa and clusterrolebinding of dashboard to get cluster-admin token
 kubectl apply -f ~/kubespray_docker_ubuntu/sa.yaml
 kubectl apply -f ~/kubespray_docker_ubuntu/clusterrolebinding.yaml
-
-# install helmfile
-wget https://github.com/helmfile/helmfile/releases/download/v0.150.0/helmfile_0.150.0_linux_amd64.tar.gz
-tar -zxvf helmfile_0.150.0_linux_amd64.tar.gz
-sudo mv helmfile /usr/bin/
-rm LICENSE && rm README.md && rm helmfile_0.150.0_linux_amd64.tar.gz
-
-# how to enter dashboard
-
-# how to add master, worker nodes
-
-# how to remove master, worker nodes
-
-# how to upgrade cluster
-
-# how to change variables in ansible config files
