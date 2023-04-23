@@ -12,7 +12,8 @@
 ### add worker
 ### - hosts.yml에 추가할 노드 명시
 ### - facts.yml
-### - scale.yml --limit=추가할 노드 이름
+### - scale.yml
+### - (optional) scale.yml --limit=추가할 노드 이름
 
 ### add control plane
 ### - hosts.yml에 추가할 노드 명시
