@@ -3,6 +3,7 @@
 ### k8s : 1.24.6
 ### cni : flannel
 ### cri : containerd
+### kubespray : release-2.20
 -------------------------------
 ## how to enter dashboard
 ### 1. enter >> kubectl create token -n kube-system admin-user
