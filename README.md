@@ -31,12 +31,22 @@
 ### - hosts.yml에서 삭제된 노드 제거
 -------------------------------
 ## how to remove etcd
+### - 특수한 경우가 아니라면 etcd 삭제 전에 먼저 새로운 etcd 노드를 추가하여 짝수개로 맞춰놓은 다음 삭제 과정을 거쳐야한다.(자세한 절차는 공식 repository 참고)
 ### - hosts.yml에는 삭제할 노드 명시
 ### - remove-node.yml -e node=NODE_NAME
 ### - (offline) remove-node.yml -e node=NODE_NAME -e reset_nodes=false -e allow_ungraceful_removal=true
 ### - hosts.yml에서 삭제된 노드 제거
 ### - cluster.yml >> 모든 노드에 설정 파일 재생성
 ### - 모든 control plane 노드에서 /etc/kubernetes/manifests/kube-apiserver.yaml 안의 --etcd-servers 파라미터에 삭제된 etcd 정보 제거
+-------------------------------
+## how to remove etcd when one etcd node is down
+### - hosts.yml에는 삭제할 노드 명시
+### - remove-node.yml -e node=NODE_NAME
+### - (offline) remove-node.yml -e node=NODE_NAME -e reset_nodes=false -e allow_ungraceful_removal=true
+### - hosts.yml에서 삭제된 노드 제거 및 새로 추가될 노드 명시(etcd 노드 수는 홀수가 되어야함)
+### - cluster.yml --limit=etcd,kube_control_plane -e ignore_assert_errors=yes
+### - upgrade-cluster.yml --limit=etcd,kube_control_plane -e ignore_assert_errors=yes
+### - 모든 control plane 노드에서 /etc/kubernetes/manifests/kube-apiserver.yaml 안의 --etcd-servers 파라미터에 새로운 etcd를 명시
 -------------------------------
 ## how to replace first control plane node
 ### - hosts.yml의 [kube_control_plane] 항목에서 삭제할 control plane을 맨 아래로 배치
