@@ -22,7 +22,6 @@
 ### - cluster.yml --limit=etcd,kube_control_plane -e ignore_assert_errors=yes
 ### - upgrade-cluster.yml --limit=etcd,kube_control_plane -e ignore_assert_errors=yes
 ### - 모든 control plane 노드에서 /etc/kubernetes/manifests/kube-apiserver.yaml 안의 --etcd-servers 파라미터에 새로운 etcd를 명시
-### - hosts.yml에서 삭제된 노드 제거
 
 ### remove worker/control plane
 ### - hosts.yml에는 삭제할 노드 명시
