@@ -39,7 +39,7 @@
 ### - cluster.yml >> 모든 노드에 설정 파일 재생성
 ### - 모든 control plane 노드에서 /etc/kubernetes/manifests/kube-apiserver.yaml 안의 --etcd-servers 파라미터에 삭제된 etcd 정보 제거
 -------------------------------
-## how to replace etcd when one etcd node is down
+## how to replace etcd when one etcd node is down (experimental)
 ### - hosts.yml에는 삭제할 노드 명시
 ### - remove-node.yml -e node=NODE_NAME
 ### - (offline) remove-node.yml -e node=NODE_NAME -e reset_nodes=false -e allow_ungraceful_removal=true
@@ -56,3 +56,7 @@
 ### - (인증서 변경했을 경우에만 수행) [certificate-authority-data] 필드로 변경
 ### - hosts.yml에서 삭제된 노드 제거 및 새로 추가될 노드 명시(etcd 노드 수는 홀수가 되어야함)
 ### - cluster.yml --limit=kube_control_plane >> 모든 노드에 설정 파일 재생성
+### - (control plane이 동시에 etcd일 경우) cluster.yml --limit=etcd,kube_control_plane
+-------------------------------
+## how to delete entire cluster
+### - ansible-playbook -i inventory/mycluster/hosts.yml -b --become-user=root reset.yml -K
