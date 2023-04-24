@@ -53,6 +53,6 @@
 ### - remove-node.yml -e node=NODE_NAME
 ### - (offline) remove-node.yml -e node=NODE_NAME -e reset_nodes=false -e allow_ungraceful_removal=true
 ### - 제시된 명령어(kubectl  edit cm -n kube-public cluster-info)를 이용하여 [server] 필드에 있던 삭제된 control plane 노드의 아이피를 현존하는 control plane 노드의 아이피로 변경
-### - (인증서 변경했을 경우) [certificate-authority-data] 필드로 변경
+### - (인증서 변경했을 경우에만 수행) [certificate-authority-data] 필드로 변경
 ### - hosts.yml에서 삭제된 노드 제거 및 새로 추가될 노드 명시(etcd 노드 수는 홀수가 되어야함)
 ### - cluster.yml --limit=kube_control_plane >> 모든 노드에 설정 파일 재생성
