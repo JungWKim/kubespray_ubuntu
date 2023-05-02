@@ -1,5 +1,5 @@
 ## Summary
-### OS : ubuntu 20.04, ubuntu 22.04
+### OS : ubuntu 20.04
 ### k8s : 1.24.6
 ### cni : flannel
 ### cri : containerd
