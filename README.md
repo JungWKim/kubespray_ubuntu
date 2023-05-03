@@ -57,7 +57,7 @@
 ### - (인증서 변경했을 경우에만 수행) [certificate-authority-data] 필드로 변경
 ### - hosts.yml에서 삭제된 노드 제거 및 새로 추가될 노드 명시(etcd 노드 수는 홀수가 되어야함)
 ### - cluster.yml --limit=kube_control_plane >> 모든 노드에 설정 파일 재생성
-### - (control plane이 동시에 etcd일 경우) cluster.yml --limit=etcd,kube_control_plane (experimental)
+### - (control plane이 동시에 etcd일 경우) cluster.yml --limit=etcd,kube_control_plane (unofficial)
 -------------------------------
 ## how to delete entire cluster
 ### - ansible-playbook -i inventory/mycluster/hosts.yml -b --become-user=root reset.yml -K
