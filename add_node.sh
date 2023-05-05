@@ -15,6 +15,7 @@ sudo systemctl disable ufw
 
 # install basic packages
 sudo apt update
+sudo apt install -y nfs-common
 
 # network configuration
 sudo modprobe overlay \
