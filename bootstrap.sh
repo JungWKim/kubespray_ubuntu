@@ -17,7 +17,7 @@ sudo systemctl disable ufw
 
 # install basic packages
 sudo apt update
-sudo apt install -y python3-pip
+sudo apt install -y python3-pip nfs-common
 
 # network configuration
 sudo modprobe overlay \
