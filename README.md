@@ -2,7 +2,7 @@
 ### OS : ubuntu 20.04, ubuntu 22.04
 ### k8s : 1.24.6
 ### cni : flannel
-### cri : containerd
+### cri : docker latest
 ### kubespray : release-2.20
 -------------------------------
 ## how to enter dashboard
