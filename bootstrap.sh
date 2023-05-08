@@ -45,15 +45,14 @@ declare -a IPS=(${IP})
 CONFIG_FILE=inventory/mycluster/hosts.yaml python3 contrib/inventory_builder/inventory.py ${IPS[@]}
 
 # use docker container runtime
-# sed -i "s/docker_version: '20.10'/docker_version: 'latest'/g" roles/container-engine/docker/defaults/main.yml
-# sed -i "s/docker_containerd_version: 1.6.4/docker_containerd_version: latest/g" roles/download/defaults/main.yml
-# sed -i "s/container_manager: containerd/container_manager: docker/g" inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
-# sed -i "s/# container_manager: containerd/container_manager: docker/g" inventory/mycluster/group_vars/all/etcd.yml
-# sed -i "s/host_architecture }}]/host_architecture }} signed-by=\/etc\/apt\/keyrings\/docker.gpg]/g" roles/container-engine/docker/vars/ubuntu.yml
-# sed -i "s/# docker_cgroup_driver: systemd/docker_cgroup_driver: systemd/g" inventory/mycluster/group_vars/all/docker.yml
-# sed -i "s/etcd_deployment_type: host/etcd_deployment_type: docker/g" inventory/mycluster/group_vars/all/etcd.yml
-# sed -i "s/# docker_storage_options: -s overlay2/docker_storage_options: -s overlay2/g" inventory/mycluster/group_vars/all/docker.yml
-
+sed -i "s/docker_version: '20.10'/docker_version: 'latest'/g" roles/container-engine/docker/defaults/main.yml
+sed -i "s/docker_containerd_version: 1.6.4/docker_containerd_version: latest/g" roles/download/defaults/main.yml
+sed -i "s/container_manager: containerd/container_manager: docker/g" inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
+sed -i "s/# container_manager: containerd/container_manager: docker/g" inventory/mycluster/group_vars/all/etcd.yml
+sed -i "s/host_architecture }}]/host_architecture }} signed-by=\/etc\/apt\/keyrings\/docker.gpg]/g" roles/container-engine/docker/vars/ubuntu.yml
+sed -i "s/# docker_cgroup_driver: systemd/docker_cgroup_driver: systemd/g" inventory/mycluster/group_vars/all/docker.yml
+sed -i "s/etcd_deployment_type: host/etcd_deployment_type: docker/g" inventory/mycluster/group_vars/all/etcd.yml
+sed -i "s/# docker_storage_options: -s overlay2/docker_storage_options: -s overlay2/g" inventory/mycluster/group_vars/all/docker.yml
 # download docker gpg
 sudo mkdir -m 0755 -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
@@ -61,6 +60,15 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o 
 # change network plugin as flannel
 sed -i "s/kube_network_plugin: calico/kube_network_plugin: flannel/g" roles/kubespray-defaults/defaults/main.yaml
 sed -i "s/kube_network_plugin: calico/kube_network_plugin: flannel/g" inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
+
+# enable nvidia container acceleration
+sed -i "s/# nvidia_accelerator_enabled: true/nvidia_accelerator_enabled: true/g" inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
+# install nvidia driver
+echo "docker_storage_options: -s overlay2" >> inventory/mycluster/group_vars/all/all.yml
+sed -i "s/# nvidia_gpu_nodes:/nvidia_gpu_nodes:/g" inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
+sed -i "s/#   - kube-gpu-001/   - kube-gpu-001/g" inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
+sed -i "s/# nvidia_driver_version: "384.111"/nvidia_driver_version: "384.111"/g" inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
+sed -i "s/# nvidia_gpu_flavor: gtx/nvidia_gpu_flavor: gtx/g" inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
 
 # enable dashboard / disable dashboard login / change dashboard service as nodeport
 sed -i "s/# dashboard_enabled: false/dashboard_enabled: true/g" inventory/mycluster/group_vars/k8s_cluster/addons.yml
