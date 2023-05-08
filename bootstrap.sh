@@ -66,8 +66,7 @@ sed -i "s/# nvidia_accelerator_enabled: true/nvidia_accelerator_enabled: true/g"
 # install nvidia driver
 echo "docker_storage_options: -s overlay2" >> inventory/mycluster/group_vars/all/all.yml
 sed -i "s/# nvidia_gpu_nodes:/nvidia_gpu_nodes:/g" inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
-sed -i "s/#   - kube-gpu-001/  - kube-gpu-001/g" inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
-sed -i "s/# nvidia_driver_version: "384.111"/nvidia_driver_version: "384.111"/g" inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
+sed -i "s/#   - kube-gpu-001/  - node1/g" inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml sed -i "s/# nvidia_driver_version: "384.111"/nvidia_driver_version: "384.111"/g" inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
 sed -i "s/# nvidia_gpu_flavor: gtx/nvidia_gpu_flavor: gtx/g" inventory/mycluster/group_vars/k8s_cluster/k8s-cluster.yml
 
 # enable dashboard / disable dashboard login / change dashboard service as nodeport
