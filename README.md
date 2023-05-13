@@ -13,8 +13,8 @@
 ### - hosts.yml에 추가할 노드 명시
 ### - facts.yml
 ### - scale.yml
-### - (optional) scale.yml --limit=추가할 노드 이름
-### - cluster.yml
+### - (or) scale.yml --limit=추가할 노드 이름
+### - (or) cluster.yml
 -------------------------------
 ## how to add control plane
 ### - hosts.yml에 추가할 노드 명시
